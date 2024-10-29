@@ -25,10 +25,19 @@
         <li><a href="{% url 'bl-about' %}" class="nav-link px-2">About</a></li>
       </ul>
 
-      <div class="col-md-3 text-end">
-        <a type="button" class="btn btn-outline-primary me-2">Login</a>
-        <a type="button" class="btn btn-primary" href="{% url 'register' %}">Sign-up</a>
-      </div>
+     <!-- Auth Buttons -->
+     <div class="d-flex ml-auto">
+      {% if user.is_authenticated %}
+        <!-- Show "Logout" button if user is logged in -->
+        <a class="btn btn-outline-danger mr-2" href="{% url 'logout' %}">Logout</a>
+      {% else %}
+        <!-- Show "Login" and "Sign-up" buttons if user is not logged in -->
+        <a class="btn btn-outline-primary mr-2" href="{% url 'login' %}">Login</a>
+        <a class="btn btn-primary" href="{% url 'register' %}">Sign-up</a>
+      {% endif %}
+    </div>
+  </div> <!-- End of navbar-collapse -->
+</div> <!-- End of container -->
     </header>
   </div>
     <!-- MAIN CONTENT -->

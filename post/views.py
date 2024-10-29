@@ -1,9 +1,9 @@
 from django.shortcuts import render
-
-# Create your views here.
-
 from django.http import HttpResponse
 from .models import Post
+from django.contrib.auth import logout
+
+
 
 # Create your views here.
 
@@ -11,10 +11,10 @@ def home(request):
     context = {
         'posts': Post.objects.all()
     }
-        
-    #return HttpResponse('<h1> WELCOME HOME !!! </h1>')
-    return render(request, 'blog/home.html', context)
+    return render(request, 'post/home.html', context)
 
 def about(request):
-    #return HttpResponse('<h1> THIS IS ABOUT PAGE </h1>') 
-    return render(request, 'blog/about.html')
+    return render(request, 'post/about.html')
+def logout_view(request):
+    logout(request)
+    return render(request, 'user/logout.html')
