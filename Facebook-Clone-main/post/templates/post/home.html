@@ -1,0 +1,261 @@
+{% extends "post/base.html" %} 
+{% load static %} 
+{% block content %} 
+{% if not user.is_authenticated %}
+
+<!--Hero Section-->
+<div class="hero bg-light py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h1 class="display-4 text-center">Login to <span class="text-primary">Facebook</span> Clone</h1>
+                <p class="lead text-center">Welcome back! Please log in to continue.</p>
+            
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username">Username or Email</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username or email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Log In</button>
+                </form>
+            
+                <p class="text-center mt-3">
+                    Don't have an account? <a href="{% url 'register' %}">Sign up here</a>.
+                </p>
+            </div>
+            
+            <div class="col-md-6">
+                <img src="{% static 'images/facebook1-removebg-preview.png' %}" alt="Illustration" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+<!--Footer Section-->
+<footer class="bg-white py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Footer Text -->
+                <p class="mb-2" style="font-size: 1.2rem;">&copy; 2024 Facebook Clone by Dwight Tristan Pajaron</p>
+
+                <!-- Social Media Links as Vertical List -->
+                <ul class="list-unstyled" style="font-size: 1.2rem;">
+                    <li>
+                        <a href="https://www.facebook.com/lolengwapo/" class="text-dark" target="_blank">
+                            <i class="ri-facebook-circle-fill"></i> Dwight Tristan Pajaron
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com/lorens.dev1" class="text-dark" target="_blank">
+                            <i class="ri-instagram-fill"></i> Tristanos
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/lorens-dev" class="text-dark" target="_blank">
+                            <i class="ri-github-fill"></i> Dopeeyyy
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Links Section -->
+            <div class="col-md-6 text-md-right">
+                <a href="#" class="text-primary mr-3">Privacy Policy</a>
+                <a href="#" class="text-primary mr-3">Terms of Service</a>
+                <a href="#" class="text-primary">Contact Us</a>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endif %}
+<!--side card profile-->
+<div class="container-fluid gedf-wrapper">
+    <br> {% if user.is_authenticated %}
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        {% if user.profile.image %}
+                        <!-- Check if the user has a profile image -->
+                        <img class="rounded-circle mr-2" style="width: 50px; height: 50px; object-fit: cover;" src="{{ user.profile.image.url }}" alt=""> {% else %}
+                        <img class="rounded-circle mr-2" style="width: 50px; height: 50px; object-fit: cover;" src="{% static 'default_image.jpg' %}" alt=""> {% endif %}
+                        <div>
+                            <div class="h5">{{ user.username }}</div>
+                            <div class="h7 text-muted">Fullname: {{ user.first_name }} {{ user.last_name }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %} 
+<!--post section-->
+        {% if user.is_authenticated %}
+        <div class="col-md-6 gedf-main">
+            <div class="card gedf-card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">What's on your mind?</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="content-section">
+                        <div class="btn-group">
+                            <a class="btn btn-primary" href="{% url 'post-create' %}">Create Post</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% for post in posts %}
+            <div class="card gedf-card mt-3">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            {% if post.author.profile.image %}
+                            <img class="rounded-circle mr-2" style="width: 45px; height: 45px; object-fit: cover;" src="{{ post.author.profile.image.url }}" alt=""> {% else %}
+                            <img class="rounded-circle mr-2" style="width: 45px; height: 45px; object-fit: cover;" src="{% static 'default_image.jpg' %}" alt=""> {% endif %}
+                            <div class="h5 m-0">{{ post.author }}</div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+                                <div class="h6 dropdown-header">Configuration</div>
+                                <a class="dropdown-item" href="#">Save</a>
+                                <a class="dropdown-item" href="#">Hide</a>
+                                <a class="dropdown-item" href="#">Report</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="text-muted h7 mb-2">
+                        <i class="fa fa-clock-o"></i> {{ post.date_posted }}
+                    </div>
+                    <a class="card-link" href="{% url 'post-detail' post.id %}">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                    </a>
+                    <p class="card-text">{{ post.content }}</p>
+                </div>
+
+                <div class="card-footer">
+                    <a href="#" class="card-link"><i class="fa fa-thumbs-up"></i> Like</a>
+                    <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
+                    <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+<!--end post-->
+
+        <br> 
+        {% if user.is_authenticated %}
+        <div class="col-md-3">
+            <!-- Card for Advertisements -->
+            <div class="card gedf-card mb-3">
+                <!-- Added margin-bottom for spacing between cards -->
+                <div class="card-body">
+                    <h5 class="card-title">Ads</h5>
+                    <p class="ad-text">ENROLL NOW AT SAINT PAUL UNIVERSITY!</p>
+                    <img src="{% static 'images/Spus.jpg' %}" alt="Ad Banner" class="img-fluid" width="300" height="200">
+                </div>
+            </div>
+
+           <!-- Card for Contacts -->
+<div class="card gedf-card">
+    <div class="card-body">
+        <h5 class="card-title">Contacts</h5>
+        <div class="list-group">
+            <!-- Contact Item -->
+            <div class="list-group-item d-flex align-items-center border-0">
+                <div class="position-relative">
+                    <img src="{% static 'images/Lebron.jpg' %}" alt="Lebron Tan" class="rounded-circle mr-3" width="45" height="45">
+                    <span class="online-indicator online"></span> <!-- Online indicator -->
+                </div>
+                <span><strong>Lebron Tan</strong></span>
+            </div>
+            <div class="list-group-item d-flex align-items-center border-0">
+                <div class="position-relative">
+                    <img src="{% static 'images/Lawrence.jpg' %}" alt="Dwight Tristan Pajaron" class="rounded-circle mr-3" width="45" height="45">
+                    <span class="online-indicator online"></span> <!-- Online indicator -->
+                </div>
+                <span><strong>Lawrence</strong></span>
+            </div>
+            <div class="list-group-item d-flex align-items-center border-0">
+                <div class="position-relative">
+                    <img src="{% static 'images/Cantil.jpg' %}" alt="John Jacob Cantil" class="rounded-circle mr-3" width="45" height="45">
+                    <span class="online-indicator online"></span> <!-- Online indicator -->
+                </div>
+                <span><strong>John Jacob Cantil</strong></span>
+            </div>
+            <div class="list-group-item d-flex align-items-center border-0">
+                <div class="position-relative">
+                    <img src="{% static 'images/Rhon.jpg' %}" alt="Rhon Juztine Roqueño" class="rounded-circle mr-3" width="45" height="45">
+                    <span class="online-indicator online"></span> <!-- Online indicator -->
+                </div>
+                <span><strong>Rhon Juztine Roqueño</strong></span>
+            </div>
+            <div class="list-group-item d-flex align-items-center border-0">
+                <div class="position-relative">
+                    <img src="{% static 'images/Sean.jpg' %}" alt="Sean Simbahon" class="rounded-circle mr-3" width="45" height="45">
+                    <span class="online-indicator online"></span> <!-- Online indicator -->
+                </div>
+                <span><strong>Sean Simbahon</strong></span>
+            </div>
+            <div class="list-group-item d-flex align-items-center border-0">
+                <div class="position-relative">
+                    <img src="{% static 'images/Isaiah.jpg' %}" alt="Isaiah Pena" class="rounded-circle mr-3" width="45" height="45">
+                    <span class="online-indicator online"></span> <!-- Online indicator -->
+                </div>
+                <span><strong>Isaiah Pena</strong></span>
+            </div>
+            <div class="list-group-item d-flex align-items-center border-0">
+                <div class="position-relative">
+                    <img src="{% static 'images/Kean.jpg' %}" alt="Kean Ocliaso" class="rounded-circle mr-3" width="45" height="45">
+                    <span class="online-indicator online"></span> <!-- Online indicator -->
+                </div>
+                <span><strong>Kean Ocliaso</strong></span>
+            </div>
+            <div class="list-group-item d-flex align-items-center border-0">
+                <div class="position-relative">
+                    <img src="{% static 'images/Xyrel.jpg' %}" alt="Xyrel Humilde" class="rounded-circle mr-3" width="45" height="45">
+                    <span class="online-indicator online"></span> <!-- Online indicator -->
+                </div>
+                <span><strong>Xyrel Humilde</strong></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add this CSS to your stylesheet or inside a <style> block in the HTML file -->
+<style>
+    .position-relative {
+        position: relative;
+    }
+
+    /* Online indicator circle */
+    .online-indicator {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 14px;  /* Increased size */
+        height: 14px; /* Increased size */
+        background-color: green; /* Green for online */
+        border-radius: 50%;
+        border: 2px solid white; /* Border to separate the indicator from the profile picture */
+    }
+</style>
+
+{% endif %}
+{% endblock %}
+

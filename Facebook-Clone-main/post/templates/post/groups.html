@@ -1,0 +1,60 @@
+{% extends "post/base.html" %}
+{% block content %}
+<!-- MAIN CONTENT -->
+<div class="container mt-4">
+    <!-- Group Header -->
+    <div class="mb-4">
+        <img src="https://wpvip.edutopia.org/wp-content/uploads/2023/06/hero_blog_technology-integration_middle-school_high-school_photo_iStock_1454448148_FatCamera.jpg?w=2880&quality=85" class="img-fluid" alt="Group Cover Photo">
+        <h2 class="mt-3">BSIT-3 GROUP</h2>
+        <p class="text-muted">A brief description of the group, outlining its purpose and topics of discussion.</p>
+    </div>
+
+    <!-- Post Form -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5>What's on your mind?</h5>
+            <form>
+                <div class="form-group">
+                    <textarea class="form-control" rows="3" placeholder="Write something..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Post</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Posts Section -->
+    <h4>Posts</h4>
+    <div class="list-group mb-4">
+        <!-- Post 1 -->
+        <div class="list-group-item">
+            <h5 class="mb-1">User 1</h5>
+            <p class="mb-1">This is the content of the first post. Everyone should check this out!</p>
+            <small>Posted on October 26, 2024</small>
+            <div class="mt-2">
+                <a href="#" class="btn btn-link">Comment</a>
+                <a href="#" class="btn btn-link">Like</a>
+            </div>
+        </div>
+        <!-- Post 2 -->
+        <div class="list-group-item">
+            <h5 class="mb-1">User 2</h5>
+            <p class="mb-1">Here’s another interesting topic for discussion.</p>
+            <small>Posted on October 25, 2024</small>
+            <div class="mt-2">
+                <a href="#" class="btn btn-link">Comment</a>
+                <a href="#" class="btn btn-link">Like</a>
+            </div>
+        </div>
+        <!-- Post 3 -->
+        <div class="list-group-item">
+            <h5 class="mb-1">User 3</h5>
+            <p class="mb-1">Don't forget about the upcoming event next week!</p>
+            <small>Posted on October 24, 2024</small>
+            <div class="mt-2">
+                <a href="#" class="btn btn-link">Comment</a>
+                <a href="#" class="btn btn-link">Like</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

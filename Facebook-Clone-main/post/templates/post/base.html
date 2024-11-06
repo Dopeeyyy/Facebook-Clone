@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>facebook clone</title>
+    <link rel="icon" href="{% static 'images/logo.png' %}" type="image/x-icon" />
+    <link href="{% static 'fbclone/style.css' %}" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+
+    <!-- ICONS -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.4.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+           <!-- Brand -->
+           <a href="{% url 'bl-home' %}" class="navbar-brand d-inline-flex align-items-center text-decoration-none">
+           <img src="{% static 'images/logo.png' %}" alt="FB Clone Logo" width="50" height="50" />
+           <span class="text-blue ml-2"></span>
+        </a>
+            
+            <!-- Mobile Toggle Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Collapsible Content -->
+            {% if user.is_authenticated %}
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <!-- Search Bar -->
+                <form class="form-inline mx-2">
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" />
+                </form>
+
+               <!-- Navigation Links -->
+<ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+    <li class="nav-item">
+        <a href="{% url 'bl-home' %}" class="nav-link">
+            <i class="ri-home-7-line mx-3" style="font-size: 1.8rem"></i>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="{% url 'bl-video' %}" class="nav-link">
+            <i class="ri-movie-line mx-3" style="font-size: 1.8rem"></i>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="{% url 'bl-marketplace' %}" class="nav-link">
+            <i class="ri-store-2-line mx-3" style="font-size: 1.8rem"></i>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="{% url 'bl-groups' %}" class="nav-link">
+            <i class="ri-group-2-line mx-3" style="font-size: 1.8rem"></i>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="{% url 'bl-gaming' %}" class="nav-link">
+            <i class="ri-gamepad-line mx-3" style="font-size: 1.8rem"></i>
+        </a>
+    </li>
+</ul>
+
+                {% endif %}
+              
+                <!-- Auth Buttons -->
+                <div class="d-flex ml-auto">
+                    {% if user.is_authenticated %}
+                        <!-- Show "Logout" button if user is logged in -->
+                        <a class="btn btn-outline-danger mr-2" href="{% url 'logout' %}">Logout</a>
+                        <a class="btn btn-outline-primary me-2" href="{% url 'profile' %}">Profile</a>
+                    {% else %}
+                        <!-- Show "Login" and "Sign-up" buttons if user is not logged in -->
+                  
+                    {% endif %}
+                </div>
+            </div> <!-- End of navbar-collapse -->
+        </div> <!-- End of container -->
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    {% block content %}{% endblock %}
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="{% static 'fbclone/js/main.js' %}"></script>
+</body>
+</html>
